@@ -1,3 +1,5 @@
+/* Custom C++ array type by Coolerputt  */
+
 #include <initializer_list>
 #include <algorithm>
 #include <iostream>
