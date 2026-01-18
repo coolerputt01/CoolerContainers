@@ -1,0 +1,25 @@
+# Ignore compiled object files
+*.o
+*.obj
+
+# Ignore compiled executable files
+*.exe
+*.out
+*.app
+*.elf
+*.a
+*.so
+*.dll
+
+# Ignore CMake build directories
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Ignore Visual Studio / IDE files (optional)
+*.vcxproj*
+*.sln
+*.user
+*.DS_Store
