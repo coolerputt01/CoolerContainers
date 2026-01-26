@@ -10,7 +10,7 @@ int main() {
   CLArray<int, 4> array = {1, 2};
 
   int g = 9;
-  array.push_back(g);
+  array.push_back(9);
   array.print();
   std::cout << array.back()<< std::endl << std::flush;
 

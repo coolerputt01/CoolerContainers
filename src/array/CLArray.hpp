@@ -1,12 +1,19 @@
 template <typename T, unsigned int N> 
 struct CLArray {
-  T items[N];
-  bool isDynamic;
+  T* items;
+  size_t size;
+  size_t capacity;
   unsigned int length;
 
   CLArray() = default;
-  CLArray(std::initializer_list<T> list, bool dynamic = false)
-      : isDynamic(dynamic) {
+  ~CLArray() {
+    clear();
+    delete[] items;
+    items = nullptr;
+  }
+  CLArray(std::initializer_list<T> list)
+      : size(N),capacity(size*8),items(nullptr){
+    items = new T[capacity];
     length = std::min(list.size(), static_cast<size_t>(N));
     std::copy_n(list.begin(), length, items);
   }
@@ -75,4 +82,28 @@ struct CLArray {
   bool isEmpty() const noexcept {
     return length > 0 ? false : true;
   }
+
+  void increaseCapacity() {
+    size_t newCapacity = capacity == 0 ? 1 : capacity * 2;
+    T* newItems = (T*) new T[newCapacity * sizeof(T)];
+
+    for(size_t i = 0;i < size;i++){
+      new (newItems + i) T(std::move(items[i]));
+      items[i].~T();
+    }
+
+    delete[] items;
+    items = newItems;
+    capacity = newCapacity;
+
+  }
+  void clear(){
+    for(size_t i = 0;i < size;i++){
+      items[i].~T();
+    }
+
+    size = 0;
+    length = 0;
+  }
+
 };
